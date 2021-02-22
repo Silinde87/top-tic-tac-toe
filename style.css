@@ -1,1 +1,23 @@
-/*stylesheet*/
+body, div{
+    margin: 0;
+    padding: 0;
+}
+
+#gameboard{
+    width: 330px;
+    height: 330px;
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+.game-slot{
+    margin: 0;
+    border: 1px solid black;
+    width: 98px;
+    height: 98px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
