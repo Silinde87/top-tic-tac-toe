@@ -44,8 +44,44 @@ const Gameboard = (function () {
         }
     };
 
-    //Check if there are three in a row or gameBoard is full.
+    //Check if there are three-in-a-row or gameBoard is full.
     const isGameOver = () => {
+        //Row checks
+        if(gameBoard[0] == gameBoard[1] && gameBoard[0] == gameBoard[2] && gameBoard[0] !== ""){
+            winner = gameBoard[0];
+            return true;
+        }
+        if(gameBoard[3] == gameBoard[4] && gameBoard[3] == gameBoard[5] && gameBoard[3] !== ""){
+            winner = gameBoard[3];
+            return true;
+        }
+        if(gameBoard[6] == gameBoard[7] && gameBoard[6] == gameBoard[8] && gameBoard[6] !== ""){
+            winner = gameBoard[6];
+            return true;
+        }
+        //Columns checks
+        if(gameBoard[0] == gameBoard[3] && gameBoard[0] == gameBoard[6] && gameBoard[0] !== ""){
+            winner = gameBoard[0];
+            return true;
+        }
+        if(gameBoard[1] == gameBoard[4] && gameBoard[1] == gameBoard[7] && gameBoard[1] !== ""){
+            winner = gameBoard[1];
+            return true;
+        }
+        if(gameBoard[2] == gameBoard[5] && gameBoard[2] == gameBoard[8] && gameBoard[2] !== ""){
+            winner = gameBoard[2];
+            return true;
+        }
+        //Diagonals checks
+        if(gameBoard[0] == gameBoard[4] && gameBoard[0] == gameBoard[8] && gameBoard[0] !== ""){
+            winner = gameBoard[0];
+            return true;
+        }
+        if(gameBoard[2] == gameBoard[4] && gameBoard[2] == gameBoard[6] && gameBoard[2] !== ""){
+            winner = gameBoard[2];
+            return true;
+        }
+        //Tie
         if (!gameBoard.includes("")) {
             winner = "tie";
             return true;
@@ -58,7 +94,6 @@ const Gameboard = (function () {
 
 /* -- Game Object (module) --
     todo:
-    - Game is over?
     - display winner*/
 const Game = (function () {
     //Invoke reset gameBoard to start/restart game.
@@ -67,6 +102,9 @@ const Game = (function () {
         playerOne = Player("X");
         playerTwo = Player("O");
         currentPlayer = playerOne;
+        playerOneLabel.classList.add("current-player");
+        playerTwoLabel.classList.remove("current-player");
+        gameBoardElement.addEventListener("click", currentPlayer.addMark)
     };
 
     //Swap between players turn when invoked.
@@ -102,13 +140,11 @@ const Player = (mark) => {
             console.log("winner: " + winner);
         }
     };
-
-    gameBoardElement.addEventListener("click", addMark);
-    return { mark };
+    return { mark, addMark};
 };
-
-//Events
-resetButton.addEventListener("click", Game.startGame);
 
 //Temporary Initialization
 Game.startGame();
+
+//Events
+resetButton.addEventListener("click", Game.startGame);
