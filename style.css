@@ -1,7 +1,18 @@
-body, div{
+body{
     margin: 0;
     padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+.game-slot,
+.btn-start{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 #gameboard{
     width: 330px;
@@ -16,11 +27,34 @@ body, div{
     border: 1px solid black;
     width: 98px;
     height: 98px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 50px;
 }
 .current-player{
     background-color: green;
+}
+.hidden{
+    display: none;
+}
+#front-container{
+    width: 450px;    
+}
+.gametype-box{
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 100px;
+    margin: 5px 0px;
+    
+}
+.vs-label{
+    margin: 0px 30px;
+    font-size: 70px;    
+}
+.btn-start{
+    background-color: yellowgreen;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    margin-top: 20px;
 }
