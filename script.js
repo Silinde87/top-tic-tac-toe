@@ -133,7 +133,7 @@ const Player = (markPlayer, typePlayer) => {
     //Invoke addMark function and passes the id of clicked elem
     //and playerMark as parameter.
     const addMark = (e) => {
-        //e.stopImmediatePropagation();        
+        //e.stopImmediatePropagation();
         //Exit if user doesn't click slot
         if (e.target.id === "gameboard") return;
         //Exit if the user clicks on the AI's turn
@@ -144,8 +144,11 @@ const Player = (markPlayer, typePlayer) => {
         Gameboard.addMarkToGameBoard(currentPlayer.getMark(), index);
 
         //AI's turn
-        if (currentPlayer.getType() == "AI"){
-            if (!Gameboard.isGameOver()) addRandomMark();
+        if (currentPlayer.getType() == "AI" && !Gameboard.isGameOver()){
+            addRandomMark();
+            //setTimeout(addRandomMark,500);
+        }else{
+            
         }
         
         //Game is over exit.
@@ -161,7 +164,7 @@ const Player = (markPlayer, typePlayer) => {
         do {
             indexRandom = Math.floor(Math.random() * 9);
         } while(gameBoardElement.children.item(indexRandom).innerText !== "");
-        setTimeout(Gameboard.addMarkToGameBoard, 500, currentPlayer.getMark(), indexRandom);            
+        Gameboard.addMarkToGameBoard(currentPlayer.getMark(), indexRandom);
     }
     return { addMark, getMark, getType };
 };
@@ -171,3 +174,11 @@ Game.startGame();
 
 //Events
 resetButton.addEventListener("click", Game.startGame);
+
+
+/*TODO:
+- minimax function for AI (function in player)
+- Let user selects HUMAN VS AI
+- all UI
+- display winner (function)
+*/
