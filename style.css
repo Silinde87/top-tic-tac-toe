@@ -21,3 +21,6 @@ body, div{
     align-items: center;
     font-size: 50px;
 }
+.current-player{
+    background-color: green;
+}
