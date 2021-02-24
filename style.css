@@ -1,19 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+:root{
+    --darkColor: #232928;
+    --midColor: #586967;
+    --lightColor: #93b2ad;
+}
+
+/* GENERAL STYLES */
 body{
     margin: 0;
     padding: 0;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
+body,
 .game-slot,
 .btn-start{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+header{
+    font-family: 'Lobster', cursive;
+    font-size: 100px;
+    text-decoration: underline;
+}
+.hidden{
+    display: none;
+}
 
-
+/* GAMEBOARD STYLES */
 #gameboard{
     width: 330px;
     height: 330px;
@@ -24,7 +41,7 @@ body{
 }
 .game-slot{
     margin: 0;
-    border: 1px solid black;
+    border: 1px solid var(--darkColor);
     width: 98px;
     height: 98px;
     font-size: 50px;
@@ -32,29 +49,53 @@ body{
 .current-player{
     background-color: green;
 }
-.hidden{
-    display: none;
-}
+
+/* FRONT STYLES */
 #front-container{
     width: 450px;    
 }
 .gametype-box{
-    border: 1px solid black;
+    background-color: var(--lightColor);
+    border: 2px solid var(--darkColor);
     border-radius: 10px;
     text-align: center;
     font-size: 100px;
-    margin: 5px 0px;
-    
+    margin: 20px 0px;
+    box-shadow: 10px 10px 16px -5px rgba(145,145,145,0.85);
+}
+.gametype-box-actived,
+.btn-start:active{
+    box-shadow: 0 0 0;
+    transform: translate(3px, 3px);
+}
+.far, .fas{
+    color: var(--darkColor);
 }
 .vs-label{
     margin: 0px 30px;
-    font-size: 70px;    
+    font-size: 60px;
+    color: var(--darkColor);
+    font-family: 'Lobster', cursive;
 }
 .btn-start{
-    background-color: yellowgreen;
+    background-color: var(--darkColor);
+    color: var(--lightColor);
     border-radius: 50%;
     height: 100px;
     width: 100px;
     margin: auto;
     margin-top: 20px;
+    margin-bottom: 6px;
+    font-family: 'Lobster', cursive;
+    font-size: 40px;
+    transition: opacity 200ms ease-in-out;
+    box-shadow: 5px 5px 5px 0px rgba(145,145,145,1);
+}
+.btn-start:hover{
+    opacity: 0.75;
+}
+.alert{
+    opacity: 0;
+    margin: auto;
+    transition: opacity 200ms ease-in-out;
 }

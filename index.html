@@ -16,23 +16,29 @@
         ></script>
     </head>
     <body>
-        <section id="front-container" class="container hidden">
+        <header>
+            <span class="user-select-none">TicTacToe</span>
+        </header>
+        <section id="front-container" class="container">
             <div class="row">
-                <div id="human-human" class="gametype-box col">
+                <div id="human-human" class="gametype-box col user-select-none" >
                     <i class="far fa-user"></i><span class="vs-label">VS</span><i class="far fa-user"></i>
                 </div>
             </div>
             <div class="row">
-                <div id="human-ai" class="gametype-box col">
+                <div id="human-ai" class="gametype-box col user-select-none">
                     <i class="far fa-user"></i><span class="vs-label">VS</span><i class="fas fa-robot"></i>
                 </div>
             </div>
             <div class="row">
-                <div class="btn-start">Start</div>
+                <div id="start-btn" class="btn-start user-select-none">Start</div>
+            </div>
+            <div class="row">
+                <div id="start-alert" class="alert alert-dark" role="alert">Choose game mode first.</div>
             </div>
             </div>
         </section>
-        <section id="main-container" class="">
+        <section id="main-container" class="hidden">
             <div id="players">
                 <span id="player-one" class="current-player">Player X</span>
                 <span id="player-two">Player O</span>

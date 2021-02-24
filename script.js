@@ -8,8 +8,13 @@ let winner;
 // -- DOM Elements --
 let gameBoardElement = document.getElementById("gameboard");
 let resetButton = document.getElementById("reset-btn");
+let startButton = document.getElementById("start-btn");
+let humanHumanButton = document.getElementById("human-human");
+let humanAiButton = document.getElementById("human-ai");
 let playerOneLabel = document.getElementById("player-one");
 let playerTwoLabel = document.getElementById("player-two");
+let frontContainer = document.getElementById("front-container");
+let mainContainer = document.getElementById("main-container");
 
 // -- GAMEBOARD OBJECT (module) --
 const Gameboard = (function () {
@@ -96,12 +101,18 @@ const Gameboard = (function () {
 const Game = (function () {
     //Invoke reset gameBoard to start/restart game.
     const startGame = () => {
+        //Exit if no selected mode
+        if(playerTwo == undefined){
+            document.getElementById("start-alert").style.opacity = "1";
+            return;
+        }
         Gameboard.resetsGameBoard();
         playerOne = Player("X", "human");
-        playerTwo = Player("O", "AI");        
         currentPlayer = playerOne;
         playerOneLabel.classList.add("current-player");
         playerTwoLabel.classList.remove("current-player");
+        frontContainer.classList.add("hidden");
+        mainContainer.classList.remove("hidden");
         gameBoardElement.addEventListener("click", currentPlayer.addMark);
     };
 
@@ -169,16 +180,23 @@ const Player = (markPlayer, typePlayer) => {
     return { addMark, getMark, getType };
 };
 
-//Temporary Initialization
-Game.startGame();
-
 //Events
 resetButton.addEventListener("click", Game.startGame);
+startButton.addEventListener("click", Game.startGame);
+humanHumanButton.addEventListener("click", () => {
+    humanHumanButton.classList.add("gametype-box-actived");
+    humanAiButton.classList.remove("gametype-box-actived");
+    playerTwo = Player("O", "human");
+});
+humanAiButton.addEventListener("click", () => {
+    humanAiButton.classList.add("gametype-box-actived");
+    humanHumanButton.classList.remove("gametype-box-actived");
+    playerTwo = Player("O", "AI");
+});
 
 
 /*TODO:
 - minimax function for AI (function in player)
-- Let user selects HUMAN VS AI
 - all UI
 - display winner (function)
 */
