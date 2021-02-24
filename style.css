@@ -30,7 +30,7 @@ body,
 
 header{
     font-family: var(--mainFontFamily);
-    font-size: 100px;
+    font-size: 85px;
     text-decoration: underline;
 }
 .hidden{
@@ -61,8 +61,8 @@ header{
     border-radius: 50%;
 }
 #gameboard{
-    width: 330px;
-    height: 330px;
+    width: 400px;
+    height: 400px;
     display: flex;
     justify-content: space-between;
     align-content: space-between;
@@ -72,8 +72,8 @@ header{
     margin: 0;
     border: 2px solid var(--darkColor);
     border-radius: 5px;
-    width: 98px;
-    height: 98px;
+    width: 128px;
+    height: 128px;
     font-size: 50px;
     font-family: var(--mainFontFamily);
 }
@@ -82,6 +82,7 @@ header{
     margin-top: 15px;
     margin-left: 5px;
     margin-right: 5px;
+    margin-bottom: 20px;
 }
 
 /* FRONT STYLES */
@@ -142,4 +143,21 @@ header{
 #result{
     font-size: 55px;
     margin-left: 10px;
+}
+
+/* FOOTER STYLES */
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 20px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fab{
+    margin-left: 10px;
+    color: black;
 }
