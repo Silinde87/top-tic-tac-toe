@@ -5,47 +5,67 @@
         <title>Tic Tac Toe</title>
         <link rel="stylesheet" href="style.css" />
         <!--Bootstrap CSS Import-->
-        <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
         <!--Fontawesome import-->
-        <script
-            src="https://kit.fontawesome.com/d1d6edd90f.js"
-            crossorigin="anonymous"
-        ></script>
+        <script src="https://kit.fontawesome.com/d1d6edd90f.js" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body class="user-select-none">
         <header>
-            <span class="user-select-none">TicTacToe</span>
+            <span class="">TicTacToe</span>
         </header>
+        <!--Front page. SELECT MODE-->
         <section id="front-container" class="container">
             <div class="row">
-                <div id="human-human" class="gametype-box col user-select-none" >
+                <div id="human-human" class="gametype-box col" >
                     <i class="far fa-user"></i><span class="vs-label">VS</span><i class="far fa-user"></i>
                 </div>
             </div>
             <div class="row">
-                <div id="human-ai" class="gametype-box col user-select-none">
+                <div id="human-ai" class="gametype-box col">
                     <i class="far fa-user"></i><span class="vs-label">VS</span><i class="fas fa-robot"></i>
                 </div>
             </div>
             <div class="row">
-                <div id="start-btn" class="btn-start user-select-none">Start</div>
+                <div id="start-btn" class="btn-start new-round-btn">Start</div>
             </div>
             <div class="row">
                 <div id="start-alert" class="alert alert-dark" role="alert">Choose game mode first.</div>
             </div>
             </div>
         </section>
+        <!--Main Page. GAMEBOARD-->
         <section id="main-container" class="hidden">
             <div id="players">
-                <span id="player-one" class="current-player">Player X</span>
-                <span id="player-two">Player O</span>
+                <div id="player-one" class="player"></div>
+                <div id="player-two" class="player"></div>
             </div>
             <div id="gameboard"></div>
-            <button id="reset-btn">Reset Game</button>
+            <div id="main-buttons">
+                <button type="button" class="btn btn-secondary btn-lg main-btn new-game-btn">New Game</button>
+                <button type="button" class="btn btn-secondary btn-lg main-btn new-round-btn">New Round</button>
+            </div>
         </section>
+
+        <!--Result modal-->
+        <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="text-result"></p>
+                        <p id="result"></p>
+                        <div>
+                            <button type="button" class="btn btn-secondary new-game-btn">New Game</button>
+                            <button type="button" class="btn btn-secondary new-round-btn">New Round</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--JQuery Import-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!--Bootstrap JS Import-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="script.js"></script>
     </body>
 </html>

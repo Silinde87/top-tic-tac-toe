@@ -4,6 +4,7 @@
     --darkColor: #232928;
     --midColor: #586967;
     --lightColor: #93b2ad;
+    --mainFontFamily: 'Lobster', cursive;
 }
 
 /* GENERAL STYLES */
@@ -14,15 +15,21 @@ body{
     display: flex;
     flex-direction: column;
 }
+/* Common alignements*/
 body,
 .game-slot,
-.btn-start{
+.btn-start,
+.player,
+.player-mark,
+.modal-body,
+#main-buttons{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 header{
-    font-family: 'Lobster', cursive;
+    font-family: var(--mainFontFamily);
     font-size: 100px;
     text-decoration: underline;
 }
@@ -31,6 +38,28 @@ header{
 }
 
 /* GAMEBOARD STYLES */
+#players{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;    
+}
+.player{
+    height: 100px;
+    width: 100px;
+    font-size: 55px;
+    color: var(--midColor);
+    display: flex;
+    flex-direction: column;
+}
+.player-mark{
+    font-size: 18px;
+    font-family: var(--mainFontFamily);
+    color: var(--darkColor);
+}
+.current-player{
+    border: 2px solid var(--darkColor);
+    border-radius: 50%;
+}
 #gameboard{
     width: 330px;
     height: 330px;
@@ -41,13 +70,18 @@ header{
 }
 .game-slot{
     margin: 0;
-    border: 1px solid var(--darkColor);
+    border: 2px solid var(--darkColor);
+    border-radius: 5px;
     width: 98px;
     height: 98px;
     font-size: 50px;
+    font-family: var(--mainFontFamily);
 }
-.current-player{
-    background-color: green;
+.main-btn{    
+    font-family: var(--mainFontFamily);
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 /* FRONT STYLES */
@@ -56,6 +90,7 @@ header{
 }
 .gametype-box{
     background-color: var(--lightColor);
+    color: var(--darkColor);
     border: 2px solid var(--darkColor);
     border-radius: 10px;
     text-align: center;
@@ -68,14 +103,11 @@ header{
     box-shadow: 0 0 0;
     transform: translate(3px, 3px);
 }
-.far, .fas{
-    color: var(--darkColor);
-}
 .vs-label{
     margin: 0px 30px;
     font-size: 60px;
     color: var(--darkColor);
-    font-family: 'Lobster', cursive;
+    font-family:  var(--mainFontFamily);
 }
 .btn-start{
     background-color: var(--darkColor);
@@ -86,7 +118,7 @@ header{
     margin: auto;
     margin-top: 20px;
     margin-bottom: 6px;
-    font-family: 'Lobster', cursive;
+    font-family:  var(--mainFontFamily);
     font-size: 40px;
     transition: opacity 200ms ease-in-out;
     box-shadow: 5px 5px 5px 0px rgba(145,145,145,1);
@@ -97,5 +129,17 @@ header{
 .alert{
     opacity: 0;
     margin: auto;
-    transition: opacity 200ms ease-in-out;
+    transition: opacity 100ms ease-in-out;
+}
+
+/* MODAL STYLES */
+.modal-body{
+    font-size: 35px;
+    font-family: var(--mainFontFamily);
+    display: flex;
+    flex-direction: column;
+}
+#result{
+    font-size: 55px;
+    margin-left: 10px;
 }

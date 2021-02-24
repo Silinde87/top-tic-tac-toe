@@ -7,8 +7,10 @@ let winner;
 
 // -- DOM Elements --
 let gameBoardElement = document.getElementById("gameboard");
-let resetButton = document.getElementById("reset-btn");
-let startButton = document.getElementById("start-btn");
+
+let newGameButton = [...document.getElementsByClassName("new-game-btn")];
+let newRoundButton = [...document.getElementsByClassName("new-round-btn")];
+
 let humanHumanButton = document.getElementById("human-human");
 let humanAiButton = document.getElementById("human-ai");
 let playerOneLabel = document.getElementById("player-one");
@@ -102,17 +104,22 @@ const Game = (function () {
     //Invoke reset gameBoard to start/restart game.
     const startGame = () => {
         //Exit if no selected mode
-        if(playerTwo == undefined){
+        if (playerTwo == undefined) {
             document.getElementById("start-alert").style.opacity = "1";
             return;
         }
         Gameboard.resetsGameBoard();
         playerOne = Player("X", "human");
         currentPlayer = playerOne;
-        playerOneLabel.classList.add("current-player");
-        playerTwoLabel.classList.remove("current-player");
         frontContainer.classList.add("hidden");
         mainContainer.classList.remove("hidden");
+        playerOneLabel.classList.add("current-player");
+        playerTwoLabel.classList.remove("current-player");
+        playerOneLabel.innerHTML =
+            `<i class="far fa-user"></i>
+            <div id="player-one-mark" class="player-mark"></div>`;
+        document.getElementById("player-one-mark").innerText = playerOne.getMark();
+        document.getElementById("player-two-mark").innerText = playerTwo.getMark();
         gameBoardElement.addEventListener("click", currentPlayer.addMark);
     };
 
@@ -139,12 +146,11 @@ const Player = (markPlayer, typePlayer) => {
 
     //Getters
     const getMark = () => mark;
-    const getType = () => type;    
+    const getType = () => type;
 
     //Invoke addMark function and passes the id of clicked elem
     //and playerMark as parameter.
     const addMark = (e) => {
-        //e.stopImmediatePropagation();
         //Exit if user doesn't click slot
         if (e.target.id === "gameboard") return;
         //Exit if the user clicks on the AI's turn
@@ -155,17 +161,20 @@ const Player = (markPlayer, typePlayer) => {
         Gameboard.addMarkToGameBoard(currentPlayer.getMark(), index);
 
         //AI's turn
-        if (currentPlayer.getType() == "AI" && !Gameboard.isGameOver()){
+        if (currentPlayer.getType() == "AI" && !Gameboard.isGameOver()) {
             addRandomMark();
-            //setTimeout(addRandomMark,500);
-        }else{
-            
         }
-        
+
         //Game is over exit.
         if (Gameboard.isGameOver()) {
             gameBoardElement.removeEventListener("click", addMark);
-            console.log("winner: " + winner);
+            if(winner === "tie"){
+                document.getElementById("text-result").innerText = "The result is:";
+            }else{
+                document.getElementById("text-result").innerText = "The winner is:";
+            }
+            document.getElementById("result").innerText = winner;
+            $('#resultModal').modal('show');
         }
     };
 
@@ -174,29 +183,47 @@ const Player = (markPlayer, typePlayer) => {
         let indexRandom;
         do {
             indexRandom = Math.floor(Math.random() * 9);
-        } while(gameBoardElement.children.item(indexRandom).innerText !== "");
+        } while (gameBoardElement.children.item(indexRandom).innerText !== "");
         Gameboard.addMarkToGameBoard(currentPlayer.getMark(), indexRandom);
-    }
+    };
     return { addMark, getMark, getType };
 };
 
 //Events
-resetButton.addEventListener("click", Game.startGame);
-startButton.addEventListener("click", Game.startGame);
+newGameButton.forEach(btn => {
+    btn.addEventListener("click",() =>{
+        $('#resultModal').modal('hide');
+        humanHumanButton.classList.remove("gametype-box-actived");
+        humanAiButton.classList.remove("gametype-box-actived");
+        frontContainer.classList.remove("hidden");
+        mainContainer.classList.add("hidden");
+    });
+});
+newRoundButton.forEach(btn => {
+    btn.addEventListener("click",() =>{
+        $('#resultModal').modal('hide');
+        Game.startGame();
+    });
+});
 humanHumanButton.addEventListener("click", () => {
     humanHumanButton.classList.add("gametype-box-actived");
     humanAiButton.classList.remove("gametype-box-actived");
+    document.getElementById("start-alert").style.opacity = "0";
+    playerTwoLabel.innerHTML =
+        `<i class="far fa-user"></i>
+        <div id="player-two-mark" class="player-mark"></div>`;
     playerTwo = Player("O", "human");
 });
 humanAiButton.addEventListener("click", () => {
     humanAiButton.classList.add("gametype-box-actived");
     humanHumanButton.classList.remove("gametype-box-actived");
+    document.getElementById("start-alert").style.opacity = "0";
+    playerTwoLabel.innerHTML =
+        `<i class="fas fa-robot"></i>
+        <div id="player-two-mark" class="player-mark"></div>`;
     playerTwo = Player("O", "AI");
 });
 
-
 /*TODO:
 - minimax function for AI (function in player)
-- all UI
-- display winner (function)
 */
