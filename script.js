@@ -197,6 +197,7 @@ newGameButton.forEach(btn => {
         humanAiButton.classList.remove("gametype-box-actived");
         frontContainer.classList.remove("hidden");
         mainContainer.classList.add("hidden");
+        playerTwo = undefined;
     });
 });
 newRoundButton.forEach(btn => {
