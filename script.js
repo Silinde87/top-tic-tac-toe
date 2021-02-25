@@ -7,10 +7,8 @@ let winner;
 
 // -- DOM Elements --
 let gameBoardElement = document.getElementById("gameboard");
-
 let newGameButton = [...document.getElementsByClassName("new-game-btn")];
 let newRoundButton = [...document.getElementsByClassName("new-round-btn")];
-
 let humanHumanButton = document.getElementById("human-human");
 let humanAiButton = document.getElementById("human-ai");
 let playerOneLabel = document.getElementById("player-one");
@@ -53,47 +51,40 @@ const Gameboard = (function () {
 
     //Check if there are three-in-a-row or gameBoard is full.
     const isGameOver = () => {
-        //Row checks
-        if (gameBoard[0] == gameBoard[1] && gameBoard[0] == gameBoard[2] && gameBoard[0] !== "") {
-            winner = gameBoard[0];
-            return true;
-        }
-        if (gameBoard[3] == gameBoard[4] && gameBoard[3] == gameBoard[5] && gameBoard[3] !== "") {
-            winner = gameBoard[3];
-            return true;
-        }
-        if (gameBoard[6] == gameBoard[7] && gameBoard[6] == gameBoard[8] && gameBoard[6] !== "") {
-            winner = gameBoard[6];
-            return true;
-        }
-        //Columns checks
-        if (gameBoard[0] == gameBoard[3] && gameBoard[0] == gameBoard[6] && gameBoard[0] !== "") {
-            winner = gameBoard[0];
-            return true;
-        }
-        if (gameBoard[1] == gameBoard[4] && gameBoard[1] == gameBoard[7] && gameBoard[1] !== "") {
-            winner = gameBoard[1];
-            return true;
-        }
-        if (gameBoard[2] == gameBoard[5] && gameBoard[2] == gameBoard[8] && gameBoard[2] !== "") {
-            winner = gameBoard[2];
-            return true;
-        }
-        //Diagonals checks
-        if (gameBoard[0] == gameBoard[4] && gameBoard[0] == gameBoard[8] && gameBoard[0] !== "") {
-            winner = gameBoard[0];
-            return true;
-        }
-        if (gameBoard[2] == gameBoard[4] && gameBoard[2] == gameBoard[6] && gameBoard[2] !== "") {
-            winner = gameBoard[2];
-            return true;
-        }
-        //Tie
+        let slots = [
+            //Rows
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            //columns
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            //Diagonals
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        let isOver = false;
+        //Checks for three equal symbols in every row, column and diagonal.
+        //Return the winner.
+        slots.forEach((row) => {
+            if (
+                gameBoard[row[0]] == gameBoard[row[1]] &&
+                gameBoard[row[0]] == gameBoard[row[2]] &&
+                gameBoard[row[0]] !== ""
+            ) {
+                winner = gameBoard[row[0]];
+                isOver = true;
+            }
+        });
+        //Tie check
         if (!gameBoard.includes("")) {
             winner = "tie";
-            return true;
+            isOver = true;
         }
-        return false;
+        //Result of the check
+        if (isOver) return true;
+        else return false;
     };
 
     return { resetsGameBoard, addMarkToGameBoard, isGameOver };
@@ -115,8 +106,7 @@ const Game = (function () {
         mainContainer.classList.remove("hidden");
         playerOneLabel.classList.add("current-player");
         playerTwoLabel.classList.remove("current-player");
-        playerOneLabel.innerHTML =
-            `<i class="far fa-user"></i>
+        playerOneLabel.innerHTML = `<i class="far fa-user"></i>
             <div id="player-one-mark" class="player-mark"></div>`;
         document.getElementById("player-one-mark").innerText = playerOne.getMark();
         document.getElementById("player-two-mark").innerText = playerTwo.getMark();
@@ -168,13 +158,13 @@ const Player = (markPlayer, typePlayer) => {
         //Game is over exit.
         if (Gameboard.isGameOver()) {
             gameBoardElement.removeEventListener("click", addMark);
-            if(winner === "tie"){
+            if (winner === "tie") {
                 document.getElementById("text-result").innerText = "The result is:";
-            }else{
+            } else {
                 document.getElementById("text-result").innerText = "The winner is:";
             }
             document.getElementById("result").innerText = winner;
-            $('#resultModal').modal('show');
+            $("#resultModal").modal("show");
         }
     };
 
@@ -190,9 +180,9 @@ const Player = (markPlayer, typePlayer) => {
 };
 
 //Events
-newGameButton.forEach(btn => {
-    btn.addEventListener("click",() =>{
-        $('#resultModal').modal('hide');
+newGameButton.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        $("#resultModal").modal("hide");
         humanHumanButton.classList.remove("gametype-box-actived");
         humanAiButton.classList.remove("gametype-box-actived");
         frontContainer.classList.remove("hidden");
@@ -200,9 +190,9 @@ newGameButton.forEach(btn => {
         playerTwo = undefined;
     });
 });
-newRoundButton.forEach(btn => {
-    btn.addEventListener("click",() =>{
-        $('#resultModal').modal('hide');
+newRoundButton.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        $("#resultModal").modal("hide");
         Game.startGame();
     });
 });
@@ -210,8 +200,7 @@ humanHumanButton.addEventListener("click", () => {
     humanHumanButton.classList.add("gametype-box-actived");
     humanAiButton.classList.remove("gametype-box-actived");
     document.getElementById("start-alert").style.opacity = "0";
-    playerTwoLabel.innerHTML =
-        `<i class="far fa-user"></i>
+    playerTwoLabel.innerHTML = `<i class="far fa-user"></i>
         <div id="player-two-mark" class="player-mark"></div>`;
     playerTwo = Player("O", "human");
 });
@@ -219,12 +208,7 @@ humanAiButton.addEventListener("click", () => {
     humanAiButton.classList.add("gametype-box-actived");
     humanHumanButton.classList.remove("gametype-box-actived");
     document.getElementById("start-alert").style.opacity = "0";
-    playerTwoLabel.innerHTML =
-        `<i class="fas fa-robot"></i>
+    playerTwoLabel.innerHTML = `<i class="fas fa-robot"></i>
         <div id="player-two-mark" class="player-mark"></div>`;
     playerTwo = Player("O", "AI");
 });
-
-/*TODO:
-- minimax function for AI (function in player)
-*/
