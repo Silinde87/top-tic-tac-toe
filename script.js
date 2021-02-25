@@ -78,7 +78,7 @@ const Gameboard = (function () {
             }
         });
         //Tie check
-        if (!gameBoard.includes("")) {
+        if (!gameBoard.includes("") && !isOver) {
             winner = "tie";
             isOver = true;
         }
